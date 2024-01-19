@@ -7,21 +7,22 @@ function navToggle() {
             mainNav.classList.remove('nav-hidden');
             mainNav.style.maxHeight = mainNav.scrollHeight + 'px';
         } else {
-            mainNav.style.transition = 'max-height 0.4s ease'; // Добавляем правило перехода перед изменением max-height
+            mainNav.style.transition = 'max-height 0.4s ease';
             mainNav.style.maxHeight = '0';
             setTimeout(function() {
                 mainNav.classList.add('nav-hidden');
-                mainNav.style.transition = ''; // Сбрасываем transition после анимации
-            }, 400); // 400 миллисекунд - это значение, соответствующее продолжительности transition
+                mainNav.style.transition = '';
+            }, 400);
         }
     }
 
-    window.addEventListener("resize", resizeHandler, false);
+    window.addEventListener("resize", resizeHandler);
+    window.addEventListener("DOMContentLoaded", resizeHandler);
 
     function resizeHandler() {
         if (document.documentElement.clientWidth >= 1024) {
             mainNav.classList.remove('nav-hidden');
-            mainNav.style.maxHeight = 'none'; // Reset max-height for larger screens
+            mainNav.style.maxHeight = 'none';
         } else {
             if (mainNav.classList.contains('nav-hidden')) {
                 mainNav.style.maxHeight = '0';
@@ -32,4 +33,6 @@ function navToggle() {
     }
 }
 
-navToggle()
+document.addEventListener("DOMContentLoaded", function() {
+    navToggle();
+});
