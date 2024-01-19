@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-row">
+                <div class="header-logo"><a href="index.html"><img src="images/logo.png" alt=""></a></div>
+                <nav class="main-nav nav-hidden" id="mainNav">
+                    <form id="searchForm">
+                        <div class="search-container">
+                            <input type="text" id="searchInput" name="searchInput" placeholder="Введите запрос">
+                            <button type="submit" id="searchButton">
+                                <img src="images/icons/search-icon.svg" alt="Search Icon">
+                            </button>
+                        </div>
+                        <div id="searchError" class="error-message"></div>
+                    </form>
+                    <ul class="header-links">
+                        <li class="header-link"><a href="">Все товары</a></li>
+                        <li class="header-link"><a href="about-us.html">О нас</a></li>
+                        <li class="header-link"><a href="contacts.html">Контакты</a></li>
+                    </ul>
+                </nav>
+                <button class="nav-btn" type="button" id="navBtn"><span></span></button>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="all-products">
+            <div class="container">
+                <div class="all-products-boxes">
+                    <div class="all-products-box">
+                        <img src="images/material/boxes-tablet.png" alt="">
+                        <h4>MacBook Pro 13</h4>
+                        <span class="old-price">130 000</span>
+                        <span class="price">100 000</span>
+                    </div>
+                    <div class="all-products-box">
+                        <img src="images/material/boxes-phones.png" alt="">
+                        <h4>Smart Galaxy Watch 3 Hello World</h4>
+                        <span class="price">100 000</span>
+                    </div>
+                    <div class="all-products-box">
+                        <img src="images/material/boxes-watch.png" alt="">
+                        <h4>MacBook Pro 13</h4>
+                        <span class="old-price">130 000</span>
+                        <span class="price">100 000</span>
+                    </div>
+                    <div class="all-products-box">
+                        <img src="images/material/boxes-laptop.png" alt="">
+                        <h4>MacBook Pro 13</h4>
+                        <span class="old-price">130 000</span>
+                        <span class="price">100 000</span>
+                    </div>
+                    <div class="all-products-box">
+                        <img src="images/material/boxes-tablet.png" alt="">
+                        <h4>MacBook Pro 13</h4>
+                        <span class="price">100 000</span>
+                    </div>
+                    <div class="all-products-box">
+                        <img src="images/material/boxes-tablet.png" alt="">
+                        <h4>MacBook Pro 13</h4>
+                        <span class="old-price">130 000</span>
+                        <span class="price">100 000</span>
+                    </div>
+                    <div class="all-products-box">
+                        <img src="images/material/boxes-tablet.png" alt="">
+                        <h4>MacBook Pro 13</h4>
+                        <span class="old-price">130 000</span>
+                        <span class="price">100 000</span>
+                    </div>
+                    <div class="all-products-box">
+                        <img src="images/material/boxes-tablet.png" alt="">
+                        <h4>MacBook Pro 13</h4>
+                        <span class="old-price">130 000</span>
+                        <span class="price">100 000</span>
+                    </div>
+                    <div class="all-products-box">
+                        <img src="images/material/boxes-tablet.png" alt="">
+                        <h4>MacBook Pro 13</h4>
+                        <span class="old-price">130 000</span>
+                        <span class="price">100 000</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-wrapper">
+                <span>Copyright © 2024 "Bagoods"</span>
+                <div class="footer-icons">
+                    <a class="footer-icon-whatsapp" href="#">WhatsApp</a>
+                    <a class="footer-icon-instagram" href="#">Instagram</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        const allProducts = document.querySelector('.all-products-boxes');
+
+        fetch('http://188.166.163.165:8000/api/v1/products')
+            .then(response => response.json())
+            .then(data => {
+                data.results.forEach(result => {
+                    const allProductsBox = document.createElement('div');
+                    allProductsBox.className = 'all-products-box';
+
+                    const imageHTML = `<img src="${result.main_image?.image || ''}" alt="${result.name}">`;
+                    const nameHTML = `<h4>${result.name}</h4>`;
+
+                    const priceHTML = result.old_price
+                        ? `<span class="old-price">${result.old_price} с.</span><span class="price">${result.current_price} с.</span>`
+                        : `<span class="price">${result.current_price} с.</span>`;
+
+                    allProductsBox.innerHTML = `${imageHTML}${nameHTML}${priceHTML}`;
+                    allProducts.appendChild(allProductsBox);
+                });
+            })
+            .catch(error => {
+                console.error('Ошибка запроса:', error);
+            });
+
+    </script>
+    <script src="js/nav.js"></script>
+</body>
+</html>

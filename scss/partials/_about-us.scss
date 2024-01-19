@@ -1,0 +1,57 @@
+.qa-container {
+  max-width: 900px;
+  margin: 20px auto;
+}
+
+.qa-item {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+
+.question {
+  padding: 15px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  transition: background-color 0.3s ease;
+}
+
+.answer {
+  padding: 15px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-out; /* Изменили ease на ease-out */
+  display: none;
+}
+
+.answer.open {
+  height: auto; /* Замените это значение на ожидаемую максимальную высоту ответа */
+  display: block;
+}
+
+
+
+
+.toggle-btn {
+  background-color: #FF8700;
+  color: #fff;
+  border: none;
+  padding: 8px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.qa-item.open {
+  border-color: #3498db;
+}
+
+.question:hover {
+  background-color: #f5f5f5;
+}
