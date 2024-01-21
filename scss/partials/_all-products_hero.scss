@@ -22,7 +22,7 @@
   .all-products-boxes{
     display: flex;
     flex-wrap: wrap;
-    gap: 25px;
+    gap: 20px;
     justify-content: center;
 
     .all-products-box{
@@ -33,24 +33,49 @@
       flex-direction: column;
       padding: 20px;
 
+      @include lm{
+        width: 260px;
+      }
+
+      @include sm{
+        width: calc((100% - 20px) / 2);
+      }
+
       img{
         width: 200px;
         height: 200px;
         margin: 0 auto 20px;
+
+        @include sm{
+          width: 100px;
+          height: 100px;
+        }
       }
 
       h4{
         font-size: 22px;
         margin-bottom: 20px;
+
+        @include sm{
+          font-size: 13px;
+        }
       }
 
       .old-price{
         text-decoration: line-through;
         color: red;
+
+        @include sm{
+          font-size: 10px;
+        }
       }
 
       .price{
         font-size: 17px;
+
+        @include sm{
+          font-size: 10px;
+        }
       }
     }
   }

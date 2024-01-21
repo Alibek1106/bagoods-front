@@ -116,7 +116,12 @@
                 <p class="all-products-signing">Сэкономь больше, выбирай лучшее!</p>
 
                 <div class="all-products-boxes">
-
+                    <div class="all-products-box">
+                        <img src="images/material/boxes-tablet.png" alt="">
+                        <h4>MacBook Pro 13</h4>
+                        <span class="old-price">130 000</span>
+                        <span class="price">100 000</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -141,7 +146,7 @@
         .then(response => response.json())
         .then(data => {
             // Use a for loop to iterate over the first 4 products
-            for (let i = 0; i < Math.min(data.results.length, 4); i++) {
+            for (let i = 0; i < Math.min(data.results.length, 3); i++) {
                 const result = data.results[i];
 
                 const allProductsBox = document.createElement('a');

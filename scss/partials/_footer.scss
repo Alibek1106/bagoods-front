@@ -1,3 +1,5 @@
+@use "../var/mixins" as *;
+
 .footer{
   background: #F8F9FA;
   padding: 20px;
@@ -8,23 +10,41 @@
     justify-content: space-between;
     align-items: center;
 
+    span{
+      font-size: 9px;
+    }
+
     .footer-icons{
       display: flex;
 
       a{
         display: block;
         font-size: 12px;
+
+        @include sm{
+          font-size: 8px;
+        }
       }
 
       .footer-icon-whatsapp{
         padding-top: 40px;
         background: url("../images/icons/whatsapp.svg") no-repeat 50% 0;
         margin-right: 30px;
+
+        @include sm{
+          background: url("../images/icons/whatsapp-small.svg") no-repeat 50% 0;
+          padding-top: 20px;
+        }
       }
 
       .footer-icon-instagram{
         padding-top: 40px;
         background: url("../images/icons/instagram.svg") no-repeat 50% 0;
+
+        @include sm{
+          background: url("../images/icons/instagram-small.svg") no-repeat 50% 0;
+          padding-top: 20px;
+        }
       }
     }
   }
