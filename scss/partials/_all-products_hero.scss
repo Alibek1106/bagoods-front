@@ -1,3 +1,5 @@
+@use "../var/mixins" as *;
+
 .all-products{
   padding: 50px 0;
 
@@ -5,6 +7,10 @@
     font-size: 33px;
     text-align: center;
     margin-bottom: 10px;
+
+    @include xxsm{
+      font-size: 23px;
+    }
   }
 
   .all-products-signing{

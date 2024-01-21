@@ -91,7 +91,7 @@
                 <div class="bestseller-boxes">
                     <div class="bestseller-box">
                         <p>Свежесть и совершенство</p>
-                        <h4>Новое и лучшее</h4>
+                        <h4>Новое</h4>
                         <a href="#">Посмотреть</a>
                         <img src="images/material/bestseller-watch.png" alt="">
                     </div>
@@ -116,29 +116,7 @@
                 <p class="all-products-signing">Сэкономь больше, выбирай лучшее!</p>
 
                 <div class="all-products-boxes">
-                    <div class="all-products-box">
-                        <img src="images/material/boxes-tablet.png" alt="">
-                        <h4>MacBook Pro 13</h4>
-                        <span class="old-price">130 000 с</span>
-                        <span class="price">100 000 с</span>
-                    </div>
-                    <div class="all-products-box">
-                        <img src="images/material/boxes-phones.png" alt="">
-                        <h4>Smart Galaxy Watch 3 Hello World</h4>
-                        <span class="price">100 000 с</span>
-                    </div>
-                    <div class="all-products-box">
-                        <img src="images/material/boxes-watch.png" alt="">
-                        <h4>MacBook Pro 13</h4>
-                        <span class="old-price">130 000 с</span>
-                        <span class="price">100 000 с</span>
-                    </div>
-                    <div class="all-products-box">
-                        <img src="images/material/boxes-laptop.png" alt="">
-                        <h4>MacBook Pro 13</h4>
-                        <span class="old-price">130 000 с</span>
-                        <span class="price">100 000 с</span>
-                    </div>
+
                 </div>
             </div>
         </section>
@@ -156,5 +134,34 @@
         </div>
     </footer>
 <script src="js/nav.js"></script>
+<script>
+    const allProducts = document.querySelector('.all-products-boxes');
+
+    fetch('http://188.166.163.165:8000/api/v1/products')
+        .then(response => response.json())
+        .then(data => {
+            // Use a for loop to iterate over the first 4 products
+            for (let i = 0; i < Math.min(data.results.length, 4); i++) {
+                const result = data.results[i];
+
+                const allProductsBox = document.createElement('a');
+                allProductsBox.className = 'all-products-box';
+
+                const imageHTML = `<img src="${result.main_image?.image || ''}" alt="${result.name}">`;
+                const nameHTML = `<h4>${result.name}</h4>`;
+
+                const priceHTML = result.old_price
+                    ? `<span class="old-price">${result.old_price} с.</span><span class="price">${result.current_price} с.</span>`
+                    : `<span class="price">${result.current_price} с.</span>`;
+
+                allProductsBox.innerHTML = `${imageHTML}${nameHTML}${priceHTML}`;
+                allProducts.appendChild(allProductsBox);
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка запроса:', error);
+        });
+
+</script>
 </body>
 </html>

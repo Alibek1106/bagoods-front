@@ -1,14 +1,29 @@
+@use "../var/mixins" as *;
+
 .hero{
   padding: 50px 0;
 
   h1{
     font-size: 42px;
     margin-bottom: 50px;
+
+    @include xxsm{
+      font-size: 30px;
+    }
   }
 
   .boxes{
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
+
+    @include lg{
+      gap: 50px;
+    }
+
+    @include sm{
+      gap: 20px;
+    }
 
     .box{
       width: calc((100% - 100px) / 4);
@@ -19,6 +34,14 @@
       display: flex;
       flex-direction: column;
       border-radius: 20px;
+
+      @include lg{
+        width: calc((100% - 50px) / 2);
+      }
+
+      @include sm{
+        width: 100%;
+      }
 
       a{
         margin: auto;
@@ -38,7 +61,8 @@
         }
 
         img{
-          width: 100%;
+          width: 250px;
+          height: 250px;
         }
       }
     }
