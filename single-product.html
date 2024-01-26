@@ -68,6 +68,9 @@
 
     <form id="order-form-wrapper">
         <div class="order-form">
+            <button id="form-close-btn" type="button">
+                <img src="images/icons/close.svg" alt="">
+            </button>
             <h3>Форма заказа</h3>
             <div class="order-form-main">
                 <div id="orderFormProductName">Order Form Product Name</div>
@@ -91,7 +94,18 @@
         </div>
     </form>
     <script>
+
+        document.getElementById("productOrderBtn").addEventListener('click', () => {
+            document.getElementById("order-form-wrapper").style.display = "flex";
+        });
+
+        document.getElementById("form-close-btn").addEventListener('click', () => {
+            document.getElementById("order-form-wrapper").style.display = "none";
+        });
+
         document.addEventListener('DOMContentLoaded', function () {
+
+
             // Функция для получения значения параметра из URL
             function getParameterByName(name, url) {
                 if (!url) url = window.location.href;

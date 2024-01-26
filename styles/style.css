@@ -925,7 +925,7 @@ legend {
 
 #order-form-wrapper {
   background: rgba(0, 0, 0, 0.5);
-  display: flex;
+  display: none;
   height: 100vh;
   position: absolute;
   width: 100%;
@@ -935,6 +935,12 @@ legend {
   margin: auto;
   background: #fff;
   border-radius: 20px;
+  position: relative;
+}
+#order-form-wrapper .order-form #form-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
 }
 #order-form-wrapper .order-form h3 {
   font-size: 26px;
@@ -942,7 +948,7 @@ legend {
   text-align: center;
   color: #fff;
   padding: 20px 0;
-  border-radius: 20px 20px 0 0;
+  border-radius: 15px 15px 0 0;
 }
 #order-form-wrapper .order-form .order-form-main {
   padding: 20px 40px;
