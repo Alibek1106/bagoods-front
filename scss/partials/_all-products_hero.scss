@@ -3,6 +3,15 @@
 .all-products{
   padding: 50px 0;
 
+  @include sm{
+    padding: 25px 0;
+  }
+
+  h1{
+    font-size: 33px;
+    margin-bottom: 30px;
+  }
+
   h2{
     font-size: 33px;
     text-align: center;
@@ -19,7 +28,7 @@
     margin-bottom: 50px;
   }
 
-  .all-products-boxes{
+  .all-products-boxes, .index-all-products-boxes{
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -53,7 +62,7 @@
       }
 
       h4{
-        font-size: 22px;
+        font-size: 19px;
         margin-bottom: 20px;
 
         @include sm{

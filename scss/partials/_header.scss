@@ -1,9 +1,12 @@
-@use "../var/colors" as *;
 @use "../var/mixins" as *;
 
 .header{
   padding: 25px 0;
   border-bottom: 1px solid #eee;
+
+  @include sm{
+    padding: 10px 0;
+  }
 
   .header-row{
     display: flex;
@@ -40,7 +43,7 @@
 
         #searchInput{
           padding: 10px 60px 10px 0;
-          border-bottom: 1px solid $black;
+          border-bottom: 1px solid #000;
           width: 100%;
         }
 
@@ -75,6 +78,10 @@
         }
       }
     }
+  }
+
+  .header-row-no-input .main-nav{
+    width: auto;
   }
 }
 

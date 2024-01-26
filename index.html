@@ -112,16 +112,11 @@
         </section>
         <section class="all-products">
             <div class="container">
-                <h2>Экономь на наших самых продаваемых товарах.</h2>
+                <h2 class="index-all-products-header">Экономь на наших самых продаваемых товарах.</h2>
                 <p class="all-products-signing">Сэкономь больше, выбирай лучшее!</p>
 
-                <div class="all-products-boxes">
-                    <div class="all-products-box">
-                        <img src="images/material/boxes-tablet.png" alt="">
-                        <h4>MacBook Pro 13</h4>
-                        <span class="old-price">130 000</span>
-                        <span class="price">100 000</span>
-                    </div>
+                <div class="index-all-products-boxes">
+
                 </div>
             </div>
         </section>
@@ -140,33 +135,47 @@
     </footer>
 <script src="js/nav.js"></script>
 <script>
-    const allProducts = document.querySelector('.all-products-boxes');
+    const allProducts = document.querySelector('.index-all-products-boxes');
 
+    // Обработчик клика на каждом товаре
+    allProducts.addEventListener('click', (event) => {
+        const target = event.target.closest('.all-products-box');
+        if (target) {
+            event.preventDefault();
+            const productId = target.getAttribute('href').split('=').pop();
+            // Переход на страницу single-product.html с использованием атрибута target="_blank" для открытия в новой вкладке
+            window.open(`single-product.html?id=${productId}`);
+        }
+    });
+
+    // Запрос и отображение списка первых четырех товаров
     fetch('http://188.166.163.165:8000/api/v1/products')
         .then(response => response.json())
         .then(data => {
-            // Use a for loop to iterate over the first 4 products
-            for (let i = 0; i < Math.min(data.results.length, 3); i++) {
-                const result = data.results[i];
-
+            data.results.slice(0, 4).forEach(product => { // Выбираем только первые 4 товара
                 const allProductsBox = document.createElement('a');
                 allProductsBox.className = 'all-products-box';
 
-                const imageHTML = `<img src="${result.main_image?.image || ''}" alt="${result.name}">`;
-                const nameHTML = `<h4>${result.name}</h4>`;
+                // Corrected href attribute
+                allProductsBox.href = `single-product.html?id=${product.id}`;
 
-                const priceHTML = result.old_price
-                    ? `<span class="old-price">${result.old_price} с.</span><span class="price">${result.current_price} с.</span>`
-                    : `<span class="price">${result.current_price} с.</span>`;
+                const imageHTML = `<img src="http://188.166.163.165:8000${product.main_image?.image || ''}" alt="${product.name}">`;
+                const nameHTML = `<h4>${product.name}</h4>`;
+
+                const priceHTML = product.old_price
+                    ? `<span class="old-price">${product.old_price} с.</span><span class="price">${product.current_price} с.</span>`
+                    : `<span class="price">${product.current_price} с.</span>`;
 
                 allProductsBox.innerHTML = `${imageHTML}${nameHTML}${priceHTML}`;
                 allProducts.appendChild(allProductsBox);
-            }
+            });
         })
         .catch(error => {
             console.error('Ошибка запроса:', error);
         });
 
+
 </script>
+<script src="js/search.js"></script>
 </body>
 </html>

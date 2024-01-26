@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-row header-row-no-input">
+                <div class="header-logo"><a href="index.html"><img src="images/logo.png" alt=""></a></div>
+                <nav class="main-nav nav-hidden" id="mainNav">
+                    <ul class="header-links">
+                        <li class="header-link"><a href="products.html">Все товары</a></li>
+                        <li class="header-link"><a href="">О нас</a></li>
+                        <li class="header-link"><a href="contacts.html">Контакты</a></li>
+                    </ul>
+                </nav>
+                <button class="nav-btn" type="button" id="navBtn"><span></span></button>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="single-product-details">
+            <div class="container">
+                <div class="single-product-details-sides">
+                    <div class="single-product-details-left">
+                        <img id="productImg" src="" alt="">
+                    </div>
+                    <div class="single-product-details-right">
+                        <h1 id="productName">Product Name</h1>
+                        <p id="productPrice">Product Price</p>
+                        <p id="oldProductPrice"Old Product Price></p>
+                        <button type="button" id="productOrderBtn">Заказать</button>
+
+                        <h5 class="product-headers">Описание:</h5>
+                        <p id="productDescription">Product Description</p>
+
+                        <h5 class="product-headers">Параметры:</h5>
+                        <p class="product-parameters-sides">
+                            <span id="productParameters-left">Product Parameters</span>
+                            <span id="productParameters-right">Product Parameters</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-wrapper">
+                <span>Copyright © 2024 "Bagoods"</span>
+                <div class="footer-icons">
+                    <a class="footer-icon-whatsapp" href="#">WhatsApp</a>
+                    <a class="footer-icon-instagram" href="#">Instagram</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <form id="order-form-wrapper">
+        <div class="order-form">
+            <h3>Форма заказа</h3>
+            <div class="order-form-main">
+                <div id="orderFormProductName">Order Form Product Name</div>
+                <div id="orderFormProductPrice">Order Form Product Price</div>
+                <label>
+                    <span>Количество</span>
+                    <input id="orderFormQuantity" type="number" min="1" value="1">
+                </label>
+                <label>
+                    <input id="orderFormName" type="text" placeholder="Имя">
+                </label>
+                <label>
+                    <input id="orderFormPhone" type="text" placeholder="Номер телефона">
+                </label>
+                <label>
+                    <input id="orderFormEmail" type="text" placeholder="E-mail">
+                </label>
+
+                <button type="submit">Заказать</button>
+            </div>
+        </div>
+    </form>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Функция для получения значения параметра из URL
+            function getParameterByName(name, url) {
+                if (!url) url = window.location.href;
+                name = name.replace(/[\[\]]/g, "\\$&");
+                const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                    results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, " "));
+            }
+
+            // Функция для отображения параметров товара
+            function displayProductParameters(parameters) {
+                const productParametersElementLeft = document.getElementById('productParameters-left');
+                const productParametersElementRight = document.getElementById('productParameters-right');
+
+                productParametersElementLeft.innerHTML = "";
+                productParametersElementRight.innerHTML = "";
+
+                for (let i = 0; i < parameters.length; i++) {
+                    const spanElement = document.createElement('span');
+                    spanElement.classList.add("productParametersSpan");
+
+                    const valueSpanElement = document.createElement('span');
+                    valueSpanElement.classList.add("parameters-value");
+                    valueSpanElement.textContent = parameters[i].value;
+
+                    spanElement.appendChild(document.createTextNode(`${parameters[i].name}: `));
+                    spanElement.appendChild(valueSpanElement);
+
+                    if (i % 2 === 0) {
+                        productParametersElementLeft.appendChild(spanElement);
+                    } else {
+                        productParametersElementRight.appendChild(spanElement);
+                    }
+                }
+            }
+
+            // Обработчик события для обновления общей цены заказа
+            function updateTotalPrice() {
+                const quantity = document.getElementById('orderFormQuantity').value;
+                const productPrice = parseFloat(document.getElementById('productPrice').textContent.replace(' с.', ''));
+                const totalPrice = quantity * productPrice;
+
+                document.getElementById('orderFormProductPrice').textContent = `${totalPrice} сом`;
+            }
+
+            // Обработчик события для обновления цены при изменении количества товаров
+            document.getElementById('orderFormQuantity').addEventListener('input', updateTotalPrice);
+
+            const orderForm = document.getElementById('order-form-wrapper');
+
+            orderForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                // Получение формных данных
+                const productId = getParameterByName('id');
+                const quantity = document.getElementById('orderFormQuantity').value;
+                const name = document.getElementById('orderFormName').value;
+                const phone = document.getElementById('orderFormPhone').value;
+                const email = document.getElementById('orderFormEmail').value;
+
+                // Создание объекта данных для запроса POST
+                const formData = {
+                    "product_id": [productId],
+                    "quantity": [quantity],
+                    "name": [name],
+                    "phone": [phone],
+                    "email": [email]
+                };
+
+                // Отправка POST-запроса на бэкэнд
+                fetch('http://188.166.163.165:8000/api/v1/order/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Order submitted successfully:', data);
+                        // Опционально: можно перенаправить пользователя или показать сообщение об успешном заказе
+                    })
+                    .catch(error => {
+                        console.error('Error submitting order:', error);
+                        // Обработка ошибки (например, показ сообщения об ошибке пользователю)
+                    });
+            });
+
+            // Функция для получения и отображения деталей продукта
+            function fetchProductDetails() {
+                const productId = getParameterByName('id');
+
+                fetch(`http://188.166.163.165:8000/api/v1/product-detail/${productId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('productName').textContent = data.name;
+                        document.getElementById('productDescription').textContent = data.description;
+                        document.getElementById('productPrice').textContent = `${data.current_price} с.`;
+                        document.getElementById('productImg').src = `http://188.166.163.165:8000${data.images[0]?.image || ''}`;
+                        if (!data.old_price) {
+                            document.getElementById('oldProductPrice').style.display = 'none';
+                            document.getElementById('productPrice').style.marginBottom = '20px';
+                        } else {
+                            document.getElementById('oldProductPrice').textContent = `${data.old_price} с.`;
+                        }
+                        displayProductParameters(data.parameters[0]);
+                        console.log(data.parameters[0]);
+                        console.log(data);
+
+                        // Заполнение данных о товаре
+                        fillProductData(data.name, data.current_price);
+
+                        // Опционально: обновление общей цены заказа при загрузке страницы
+                        updateTotalPrice();
+                    })
+                    .catch(error => {
+                        console.error('Error fetching product details:', error);
+                    });
+            }
+
+            // Функция для заполнения данных о товаре
+            function fillProductData(productName, productPrice) {
+                document.getElementById('orderFormProductName').textContent = `${productName}`;
+                document.getElementById('orderFormProductPrice').textContent = `${productPrice} с.`;
+            }
+
+            // Выполнение функции при загрузке страницы
+            fetchProductDetails();
+        });
+
+    </script>
+
+
+    <script src="js/nav.js"></script>
+</body>
+</html>
