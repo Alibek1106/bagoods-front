@@ -12,101 +12,160 @@
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-    <header class="header">
+<header class="header">
+    <div class="container">
+        <div class="header-row">
+            <div class="header-logo"><a href="index.html"><img src="images/logo.png" alt=""></a></div>
+            <nav class="main-nav nav-hidden" id="mainNav">
+                <form id="searchForm">
+                    <div class="search-container">
+                        <input type="text" id="searchInput" name="searchInput" placeholder="Введите запрос">
+                        <button type="submit" id="searchButton">
+                            <img src="images/icons/search-icon.svg" alt="Search Icon">
+                        </button>
+                    </div>
+                    <div id="searchError" class="error-message"></div>
+                </form>
+                <ul class="header-links">
+                    <li class="header-link"><a href="">Все товары</a></li>
+                    <li class="header-link"><a href="about-us.html">О нас</a></li>
+                    <li class="header-link"><a href="contacts.html">Контакты</a></li>
+                </ul>
+            </nav>
+            <button class="nav-btn" type="button" id="navBtn"><span></span></button>
+        </div>
+    </div>
+</header>
+<main>
+    <section class="all-products">
         <div class="container">
-            <div class="header-row">
-                <div class="header-logo"><a href="index.html"><img src="images/logo.png" alt=""></a></div>
-                <nav class="main-nav nav-hidden" id="mainNav">
-                    <form id="searchForm">
-                        <div class="search-container">
-                            <input type="text" id="searchInput" name="searchInput" placeholder="Введите запрос">
-                            <button type="submit" id="searchButton">
-                                <img src="images/icons/search-icon.svg" alt="Search Icon">
-                            </button>
-                        </div>
-                        <div id="searchError" class="error-message"></div>
-                    </form>
-                    <ul class="header-links">
-                        <li class="header-link"><a href="">Все товары</a></li>
-                        <li class="header-link"><a href="about-us.html">О нас</a></li>
-                        <li class="header-link"><a href="contacts.html">Контакты</a></li>
-                    </ul>
-                </nav>
-                <button class="nav-btn" type="button" id="navBtn"><span></span></button>
+            <h1>Все товары</h1>
+            <div class="all-products-sides">
+                <aside class="sidebar">
+                    <ul id="categoryList"></ul>
+                </aside>
+
+                <div class="all-products-right">
+                    <div class="all-products-boxes"></div>
+                </div>
+
+
             </div>
         </div>
-    </header>
-    <main>
-        <section class="all-products">
-            <div class="container">
-                <h1>Все товары</h1>
-                <div class="all-products-boxes">
-                    <!-- <div class="all-products-box">
-                        <img src="images/material/boxes-tablet.png" alt="">
-                        <h4>MacBook Pro 13</h4>
-                        <span class="old-price">130 000</span>
-                        <span class="price">100 000</span>
-                    </div> -->
+    </section>
 
-                </div>
-            </div>
-        </section>
-
-    </main>
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-wrapper">
-                <span>Copyright © 2024 "Bagoods"</span>
-                <div class="footer-icons">
-                    <a class="footer-icon-whatsapp" href="#">WhatsApp</a>
-                    <a class="footer-icon-instagram" href="#">Instagram</a>
-                </div>
+</main>
+<footer class="footer">
+    <div class="container">
+        <div class="footer-wrapper">
+            <span>Copyright © 2024 "Bagoods"</span>
+            <div class="footer-icons">
+                <a class="footer-icon-whatsapp" href="#">WhatsApp</a>
+                <a class="footer-icon-instagram" href="#">Instagram</a>
             </div>
         </div>
-    </footer>
-    <script>
-        const allProducts = document.querySelector('.all-products-boxes');
+    </div>
+</footer>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const allProducts = document.querySelector('.all-products-boxes');
+            const categoryList = document.getElementById('categoryList');
+            const showAllProductsLi = document.createElement('li');
+            const showAllProductsLink = document.createElement('a');
+            const showAllProductsBtn = document.getElementById('showAllProducts');
 
-        // Обработчик клика на каждом товаре
-        allProducts.addEventListener('click', (event) => {
-            const target = event.target.closest('.all-products-box');
-            if (target) {
-                event.preventDefault();
-                const productId = target.getAttribute('href').split('/').pop();
-                // Переход на страницу single-product.html с использованием атрибута target="_blank" для открытия в новой вкладке
-                window.open(`single-product.html?id=${productId}`);
-            }
-        });
+            showAllProductsLink.href = '#';
+            showAllProductsLink.textContent = 'Все товары';
+            showAllProductsLi.appendChild(showAllProductsLink);
 
-        // Запрос и отображение списка товаров
-        fetch('http://188.166.163.165:8000/api/v1/products')
-            .then(response => response.json())
-            .then(data => {
-                data.results.forEach(product => {
-                    const allProductsBox = document.createElement('a');
-                    allProductsBox.className = 'all-products-box';
+            categoryList.appendChild(showAllProductsLi);
 
-                    // Добавляем href с использованием идентификатора товара
-                    allProductsBox.href = `path/to/product/${product.id}`;
+            showAllProductsLi.classList.add('active');
 
-                    const imageHTML = `<img src="http://188.166.163.165:8000${product.main_image?.image || ''}" alt="${product.name}">`;
-                    const nameHTML = `<h4>${product.name}</h4>`;
+            fetch('http://188.166.163.165:8000/api/v1/category-list/')
+                .then(response => response.json())
+                .then(categories => {
+                    categories.forEach(category => {
+                        const categoryItem = document.createElement('li');
+                        const categoryLink = document.createElement('a');
 
-                    const priceHTML = product.old_price
-                        ? `<span class="old-price">${product.old_price} с.</span><span class="price">${product.current_price} с.</span>`
-                        : `<span class="price">${product.current_price} с.</span>`;
+                        categoryLink.href = '#';
+                        categoryLink.setAttribute('data-slug', category.slug);
+                        categoryLink.textContent = category.name;
 
-                    allProductsBox.innerHTML = `${imageHTML}${nameHTML}${priceHTML}`;
-                    allProducts.appendChild(allProductsBox);
+                        categoryItem.appendChild(categoryLink);
+                        categoryList.appendChild(categoryItem);
+
+                        categoryItem.addEventListener('click', (event) => {
+                            const target = event.target.closest('a');
+                            if (target) {
+                                event.preventDefault();
+                                const slug = target.getAttribute('data-slug');
+                                filterProductsByCategory(slug);
+
+                                document.querySelectorAll('#categoryList li').forEach(catItem => {
+                                    catItem.classList.remove('active');
+                                });
+
+                                target.parentNode.classList.add('active');
+                            }
+                        });
+                    });
+                })
+                .catch(error => {
+                    console.error('Ошибка запроса категорий:', error);
                 });
-            })
-            .catch(error => {
-                console.error('Ошибка запроса:', error);
+
+            showAllProductsLink.addEventListener('click', (event) => {
+                event.preventDefault();
+                fetchAllProducts();
+
+                document.querySelectorAll('#categoryList li').forEach(categoryItem => {
+                    categoryItem.classList.remove('active');
+                });
+
+                showAllProductsLi.classList.add('active');
             });
 
-    </script>
+            fetchAllProducts();
 
-    <script src="js/nav.js"></script>
-    <script src="js/search.js"></script>
+            function fetchAllProducts() {
+                fetchProducts('http://188.166.163.165:8000/api/v1/products');
+            }
+
+            function filterProductsByCategory(slug) {
+                fetchProducts(`http://188.166.163.165:8000/api/v1/category-products/${slug}`);
+            }
+
+            function fetchProducts(url) {
+                allProducts.innerHTML = '';
+
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        data.results.forEach(product => {
+                            const allProductsBox = document.createElement('a');
+                            allProductsBox.className = 'all-products-box';
+                            allProductsBox.href = `http://188.166.163.165/single-product.html?id=${product.id}`;
+
+                            const imageHTML = `<img src="http://188.166.163.165:8000${product.main_image?.image || ''}" alt="${product.name}">`;
+                            const nameHTML = `<h4>${product.name}</h4>`;
+
+                            const priceHTML = product.old_price
+                            ? `<span class="old-price">${product.old_price} с.</span><span class="price">${product.current_price} с.</span>`
+                            : `<span class="price">${product.current_price} с.</span>`;
+
+                            allProductsBox.innerHTML = `${imageHTML}${nameHTML}${priceHTML}`;
+                            allProducts.appendChild(allProductsBox);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Ошибка запроса товаров:', error);
+                    });
+            }
+        });
+</script>
+<script src="js/nav.js"></script>
+<script src="js/search.js"></script>
 </body>
 </html>

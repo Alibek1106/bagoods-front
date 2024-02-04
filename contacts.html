@@ -55,13 +55,11 @@
                             <form action="" id="request-form">
                                 <p>Ваше имя:</p>
                                 <input type="text" name="name" required>
-                                <p>E-mail:</p>
-                                <input type="text" name="email" required>
+                                <p>Номер телефона:</p>
+                                <input type="tel" name="phone" value="+996 " required>
                                 <p>Введите ваше сообщение:</p>
                                 <textarea name="message" id="" cols="20" rows="10"  required></textarea>
-                                <input style="display:none;" type="text" name="lng" value="Язык сайта во время отправки сообщения: Русский">
-
-                                <button type="submit">Отправить</button>
+                                <button type="button" onclick="submitForm()">Отправить</button>
                             </form>
                         </div>
                     </div>
@@ -80,6 +78,30 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        function submitForm() {
+            const form = document.getElementById('request-form');
+            const formData = new FormData(form);
+
+            fetch('http://188.166.163.165:8000/api/v1/message/', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    displayResponse(data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function displayResponse(data) {
+            const responseMessage = document.getElementById('response-message');
+            responseMessage.innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+        }
+    </script>
     <script src="js/nav.js"></script>
 </body>
 </html>

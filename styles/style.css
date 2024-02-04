@@ -22,7 +22,7 @@ main {
 .container {
   max-width: 1360px;
   margin: 0 auto;
-  padding: 0 30px;
+  padding: 0 15px;
 }
 
 .clearfix::after {
@@ -534,6 +534,17 @@ legend {
 .all-products {
   padding: 50px 0;
 }
+.all-products .see-all-products {
+  text-align: center;
+}
+.all-products .see-all-products a {
+  border: 1px solid #000;
+  padding: 10px 20px;
+  border-radius: 20px;
+  align-items: center;
+  margin-top: 40px;
+  display: inline-block;
+}
 @media screen and (max-width: 640px) {
   .all-products {
     padding: 25px 0;
@@ -553,10 +564,45 @@ legend {
     font-size: 23px;
   }
 }
+.all-products .all-products-sides {
+  display: flex;
+}
+.all-products .all-products-sides .sidebar {
+  width: 20%;
+}
+.all-products .all-products-sides .sidebar li {
+  margin-top: 20px;
+}
+@media screen and (max-width: 840px) {
+  .all-products .all-products-sides .sidebar li {
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 640px) {
+  .all-products .all-products-sides .sidebar li {
+    font-size: 11px;
+  }
+}
+.all-products .all-products-sides .sidebar li:not(:first-child) {
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+}
+.all-products .all-products-sides .sidebar .active {
+  font-weight: 600;
+  color: #FF8700;
+}
+.all-products .all-products-sides .all-products-right {
+  width: 80%;
+}
 .all-products .all-products-signing {
   text-align: center;
   font-size: 13px;
   margin-bottom: 50px;
+}
+@media screen and (max-width: 480px) {
+  .all-products .all-products-boxes .all-products-box {
+    width: 80% !important;
+  }
 }
 .all-products .all-products-boxes, .all-products .index-all-products-boxes {
   display: flex;
@@ -591,6 +637,12 @@ legend {
   .all-products .all-products-boxes .all-products-box img, .all-products .index-all-products-boxes .all-products-box img {
     width: 100px;
     height: 100px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .all-products .all-products-boxes .all-products-box img, .all-products .index-all-products-boxes .all-products-box img {
+    width: 70px;
+    height: 70px;
   }
 }
 .all-products .all-products-boxes .all-products-box h4, .all-products .index-all-products-boxes .all-products-box h4 {

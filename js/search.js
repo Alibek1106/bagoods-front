@@ -27,7 +27,7 @@ function displayProducts(products) {
     products.forEach(product => {
         const productBox = document.createElement('a');
         productBox.className = 'all-products-box';
-        productBox.href = `path/to/product/${product.id}`;
+        productBox.href = `http://188.166.163.165/single-product.html?id=${product.id}`;
 
         const imageHTML = `<img src="http://188.166.163.165:8000${product.main_image?.image || ''}" alt="${product.name}">`;
         const nameHTML = `<h4>${product.name}</h4>`;
