@@ -106,7 +106,6 @@
         document.addEventListener('DOMContentLoaded', function () {
 
 
-            // Функция для получения значения параметра из URL
             function getParameterByName(name, url) {
                 if (!url) url = window.location.href;
                 name = name.replace(/[\[\]]/g, "\\$&");
@@ -117,7 +116,6 @@
                 return decodeURIComponent(results[2].replace(/\+/g, " "));
             }
 
-            // Функция для отображения параметров товара
             function displayProductParameters(parameters) {
                 const productParametersElementLeft = document.getElementById('productParameters-left');
                 const productParametersElementRight = document.getElementById('productParameters-right');
@@ -144,7 +142,6 @@
                 }
             }
 
-            // Обработчик события для обновления общей цены заказа
             function updateTotalPrice() {
                 const quantity = document.getElementById('orderFormQuantity').value;
                 const productPrice = parseFloat(document.getElementById('productPrice').textContent.replace(' с.', ''));
@@ -153,7 +150,6 @@
                 document.getElementById('orderFormProductPrice').textContent = `${totalPrice} сом`;
             }
 
-            // Обработчик события для обновления цены при изменении количества товаров
             document.getElementById('orderFormQuantity').addEventListener('input', updateTotalPrice);
 
             const orderForm = document.getElementById('order-form-wrapper');
@@ -161,7 +157,6 @@
             orderForm.addEventListener('submit', function (event) {
                 event.preventDefault();
 
-                // Получение формных данных
                 const productId = getParameterByName('id');
                 const quantity = document.getElementById('orderFormQuantity').value;
                 const name = document.getElementById('orderFormName').value;
@@ -206,7 +201,7 @@
                         document.getElementById('productName').textContent = data.name;
                         document.getElementById('productDescription').textContent = data.description;
                         document.getElementById('productPrice').textContent = `${data.current_price} с.`;
-                        document.getElementById('productImg').src = `http://188.166.163.165:8000${data.images[0]?.image || ''}`;
+                        document.getElementById('productImg').src = `https://bagoods.kg${data.images[0]?.image || ''}`;
                         if (!data.old_price) {
                             document.getElementById('oldProductPrice').style.display = 'none';
                             document.getElementById('productPrice').style.marginBottom = '20px';

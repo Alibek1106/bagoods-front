@@ -27,9 +27,9 @@ function displayProducts(products) {
     products.forEach(product => {
         const productBox = document.createElement('a');
         productBox.className = 'all-products-box';
-        productBox.href = `http://188.166.163.165/single-product.html?id=${product.id}`;
+        productBox.href = `https://bagoods.kg/single-product.html?id=${product.id}`;
 
-        const imageHTML = `<img src="http://188.166.163.165:8000${product.main_image?.image || ''}" alt="${product.name}">`;
+        const imageHTML = `<img src="https://bagoods.kg${product.main_image?.image || ''}" alt="${product.name}">`;
         const nameHTML = `<h4>${product.name}</h4>`;
 
         const priceHTML = product.old_price
@@ -48,7 +48,7 @@ searchForm.addEventListener('submit', async (event) => {
 
     if (searchTerm !== '') {
         try {
-            const searchUrl = `http://188.166.163.165:8000/api/v1/products/?search=${encodeURIComponent(searchTerm)}`;
+            const searchUrl = `https://bagoods.kg/api/v1/products/?search=${encodeURIComponent(searchTerm)}`;
             const response = await fetch(searchUrl);
 
             if (!response.ok) {
