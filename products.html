@@ -67,105 +67,104 @@
     </div>
 </footer>
 <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const allProducts = document.querySelector('.all-products-boxes');
-            const categoryList = document.getElementById('categoryList');
-            const showAllProductsLi = document.createElement('li');
-            const showAllProductsLink = document.createElement('a');
-            const showAllProductsBtn = document.getElementById('showAllProducts');
+    document.addEventListener('DOMContentLoaded', () => {
+        const allProducts = document.querySelector('.all-products-boxes');
+        const categoryList = document.getElementById('categoryList');
+        const showAllProductsLi = document.createElement('li');
+        const showAllProductsLink = document.createElement('a');
+        const showAllProductsBtn = document.getElementById('showAllProducts');
 
-            showAllProductsLink.href = '#';
-            showAllProductsLink.textContent = 'Все товары';
-            showAllProductsLi.appendChild(showAllProductsLink);
+        showAllProductsLink.href = '#';
+        showAllProductsLink.textContent = 'Все товары';
+        showAllProductsLi.appendChild(showAllProductsLink);
 
-            categoryList.appendChild(showAllProductsLi);
+        categoryList.appendChild(showAllProductsLi);
 
-            showAllProductsLi.classList.add('active');
+        showAllProductsLi.classList.add('active');
 
-            fetch('http://188.166.163.165:8000/api/v1/category-list/')
-                .then(response => response.json())
-                .then(categories => {
-                    categories.forEach(category => {
-                        const categoryItem = document.createElement('li');
-                        const categoryLink = document.createElement('a');
+        fetch('https://bagoods.kg/api/v1/category-list/')
+            .then(response => response.json())
+            .then(categories => {
+                categories.forEach(category => {
+                    const categoryItem = document.createElement('li');
+                    const categoryLink = document.createElement('a');
 
-                        categoryLink.href = '#';
-                        categoryLink.setAttribute('data-slug', category.slug);
-                        categoryLink.textContent = category.name;
+                    categoryLink.href = '#';
+                    categoryLink.setAttribute('data-slug', category.slug);
+                    categoryLink.textContent = category.name;
 
-                        categoryItem.appendChild(categoryLink);
-                        categoryList.appendChild(categoryItem);
+                    categoryItem.appendChild(categoryLink);
+                    categoryList.appendChild(categoryItem);
 
-                        categoryItem.addEventListener('click', (event) => {
-                            const target = event.target.closest('a');
-                            if (target) {
-                                event.preventDefault();
-                                const slug = target.getAttribute('data-slug');
-                                filterProductsByCategory(slug);
+                    categoryItem.addEventListener('click', (event) => {
+                        const target = event.target.closest('a');
+                        if (target) {
+                            event.preventDefault();
+                            const slug = target.getAttribute('data-slug');
+                            filterProductsByCategory(slug);
 
-                                document.querySelectorAll('#categoryList li').forEach(catItem => {
-                                    catItem.classList.remove('active');
-                                });
+                            document.querySelectorAll('#categoryList li').forEach(catItem => {
+                                catItem.classList.remove('active');
+                            });
 
-                                target.parentNode.classList.add('active');
-                            }
-                        });
+                            target.parentNode.classList.add('active');
+                        }
                     });
-                })
-                .catch(error => {
-                    console.error('Ошибка запроса категорий:', error);
                 });
-
-            showAllProductsLink.addEventListener('click', (event) => {
-                event.preventDefault();
-                fetchAllProducts();
-
-                document.querySelectorAll('#categoryList li').forEach(categoryItem => {
-                    categoryItem.classList.remove('active');
-                });
-
-                showAllProductsLi.classList.add('active');
+            })
+            .catch(error => {
+                console.error('Ошибка запроса категорий:', error);
             });
 
+        showAllProductsLink.addEventListener('click', (event) => {
+            event.preventDefault();
             fetchAllProducts();
 
-            function fetchAllProducts() {
-                fetchProducts('http://bagoods.kg:8000/api/v1/products');
-            }
+            document.querySelectorAll('#categoryList li').forEach(categoryItem => {
+                categoryItem.classList.remove('active');
+            });
 
-            function filterProductsByCategory(slug) {
-                fetchProducts(`http://188.166.163.165:8000/api/v1/category-products/${slug}`);
-            }
+            showAllProductsLi.classList.add('active');
+        });
 
-            function fetchProducts(url) {
-                allProducts.innerHTML = '';
+        fetchAllProducts();
 
-                fetch(url)
-                    .then(response => response.json())
-                    .then(data => {
-                        data.results.forEach(product => {
-                            const allProductsBox = document.createElement('a');
-                            allProductsBox.className = 'all-products-box';
-                            allProductsBox.href = `http://188.166.163.165/single-product.html?id=${product.id}`;
+        function fetchAllProducts() {
+            fetchProducts('https://bagoods.kg/api/v1/products');
+        }
 
-                            const imageHTML = `<img src="http://188.166.163.165:8000${product.main_image?.image || ''}" alt="${product.name}">`;
-                            const nameHTML = `<h4>${product.name}</h4>`;
+        function filterProductsByCategory(slug) {
+            fetchProducts(`https://bagoods.kg/api/v1/category-products/${slug}`);
+        }
 
-                            const priceHTML = product.old_price
+        function fetchProducts(url) {
+            allProducts.innerHTML = '';
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    data.results.forEach(product => {
+                        const allProductsBox = document.createElement('a');
+                        allProductsBox.className = 'all-products-box';
+                        allProductsBox.href = `https://bagoods.kg/single-product.html?id=${product.id}`;
+
+                        const imageHTML = `<img src="https://bagoods.kg${product.main_image?.image || ''}" alt="${product.name}">`;
+                        const nameHTML = `<h4>${product.name}</h4>`;
+
+                        const priceHTML = product.old_price
                             ? `<span class="old-price">${product.old_price} с.</span><span class="price">${product.current_price} с.</span>`
                             : `<span class="price">${product.current_price} с.</span>`;
 
-                            allProductsBox.innerHTML = `${imageHTML}${nameHTML}${priceHTML}`;
-                            allProducts.appendChild(allProductsBox);
-                        });
-                    })
-                    .catch(error => {
-                        console.error('Ошибка запроса товаров:', error);
+                        allProductsBox.innerHTML = `${imageHTML}${nameHTML}${priceHTML}`;
+                        allProducts.appendChild(allProductsBox);
                     });
-            }
-        });
+                })
+                .catch(error => {
+                    console.error('Ошибка запроса товаров:', error);
+                });
+        }
+    });
 </script>
 <script src="js/nav.js"></script>
 <script src="js/search.js"></script>
 </body>
-</html>
