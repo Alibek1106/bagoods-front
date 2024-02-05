@@ -149,7 +149,7 @@
         }
     });
 
-    fetch('http://188.166.163.165:8000/api/v1/products')
+    fetch('https://bagoods.kg/api/v1/products')
         .then(response => response.json())
         .then(data => {
             data.results.slice(0, 4).forEach(product => {
@@ -158,7 +158,7 @@
 
                 allProductsBox.href = `single-product.html?id=${product.id}`;
 
-                const imageHTML = `<img src="http://188.166.163.165:8000${product.main_image?.image || ''}" alt="${product.name}">`;
+                const imageHTML = `<img src="https://bagoods.kg${product.main_image?.image || ''}" alt="${product.name}">`;
                 const nameHTML = `<h4>${product.name}</h4>`;
 
                 const priceHTML = product.old_price

@@ -178,7 +178,7 @@
                 };
 
                 // Отправка POST-запроса на бэкэнд
-                fetch('http://188.166.163.165:8000/api/v1/order/', {
+                fetch('https://bagoods.kg/api/v1/order/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -200,7 +200,7 @@
             function fetchProductDetails() {
                 const productId = getParameterByName('id');
 
-                fetch(`http://188.166.163.165:8000/api/v1/product-detail/${productId}`)
+                fetch(`https://bagoods.kg/api/v1/product-detail/${productId}`)
                     .then(response => response.json())
                     .then(data => {
                         document.getElementById('productName').textContent = data.name;
