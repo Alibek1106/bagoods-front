@@ -84,7 +84,7 @@
             const form = document.getElementById('request-form');
             const formData = new FormData(form);
 
-            fetch('http://188.166.163.165:8000/api/v1/message/', {
+            fetch('/api/v1/message/', {
                 method: 'POST',
                 body: formData
             })
