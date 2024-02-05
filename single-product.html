@@ -95,17 +95,13 @@
     </form>
     <script>
 
-        document.getElementById("productOrderBtn").addEventListener('click', () => {
-            document.getElementById("order-form-wrapper").style.display = "flex";
-        });
+        document.getElementById("productOrderBtn").addEventListener('click', submitOrderForm);
 
         document.getElementById("form-close-btn").addEventListener('click', () => {
             document.getElementById("order-form-wrapper").style.display = "none";
         });
 
         document.addEventListener('DOMContentLoaded', function () {
-
-
             function getParameterByName(name, url) {
                 if (!url) url = window.location.href;
                 name = name.replace(/[\[\]]/g, "\\$&");
@@ -163,33 +159,31 @@
                 const phone = document.getElementById('orderFormPhone').value;
                 const email = document.getElementById('orderFormEmail').value;
 
-                const formData = {
-                    "product_id": [productId],
-                    "quantity": [quantity],
-                    "name": [name],
-                    "phone": [phone],
-                    "email": [email]
-                };
+                const formData = new FormData(orderForm);
+                formData.set('product_id', productId);
+                formData.set('quantity', quantity);
+                formData.set('name', name);
+                formData.set('phone', phone);
+                formData.set('email', email);
 
                 fetch('/api/v1/order/', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(formData)
+                    body: formData
                 })
                     .then(response => response.json())
                     .then(data => {
-                        console.log('Order submitted successfully:', data);
-                        // Опционально: можно перенаправить пользователя или показать сообщение об успешном заказе
+                        displayOrderResponse(data);
                     })
                     .catch(error => {
                         console.error('Error submitting order:', error);
-                        // Обработка ошибки (например, показ сообщения об ошибке пользователю)
                     });
             });
 
-            // Функция для получения и отображения деталей продукта
+            function displayOrderResponse(data) {
+                const orderResponseMessage = document.getElementById('order-response-message');
+                orderResponseMessage.innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            }
+
             function fetchProductDetails() {
                 const productId = getParameterByName('id');
 
@@ -210,10 +204,8 @@
                         console.log(data.parameters[0]);
                         console.log(data);
 
-                        // Заполнение данных о товаре
                         fillProductData(data.name, data.current_price);
 
-                        // Опционально: обновление общей цены заказа при загрузке страницы
                         updateTotalPrice();
                     })
                     .catch(error => {
@@ -221,16 +213,17 @@
                     });
             }
 
-            // Функция для заполнения данных о товаре
             function fillProductData(productName, productPrice) {
                 document.getElementById('orderFormProductName').textContent = `${productName}`;
                 document.getElementById('orderFormProductPrice').textContent = `${productPrice} с.`;
             }
 
-            // Выполнение функции при загрузке страницы
             fetchProductDetails();
         });
 
+        function submitOrderForm() {
+            document.getElementById("order-form-wrapper").style.display = "flex";
+        }
     </script>
 
 
