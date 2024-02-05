@@ -163,7 +163,6 @@
                 const phone = document.getElementById('orderFormPhone').value;
                 const email = document.getElementById('orderFormEmail').value;
 
-                // Создание объекта данных для запроса POST
                 const formData = {
                     "product_id": [productId],
                     "quantity": [quantity],
@@ -172,7 +171,7 @@
                     "email": [email]
                 };
 
-                fetch('https://bagoods.kg/api/v1/order/', {
+                fetch('/api/v1/order/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -194,7 +193,7 @@
             function fetchProductDetails() {
                 const productId = getParameterByName('id');
 
-                fetch(`https://bagoods.kg/api/v1/product-detail/${productId}`)
+                fetch(`/api/v1/product-detail/${productId}`)
                     .then(response => response.json())
                     .then(data => {
                         document.getElementById('productName').textContent = data.name;

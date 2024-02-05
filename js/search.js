@@ -48,7 +48,7 @@ searchForm.addEventListener('submit', async (event) => {
 
     if (searchTerm !== '') {
         try {
-            const searchUrl = `https://bagoods.kg/api/v1/products/?search=${encodeURIComponent(searchTerm)}`;
+            const searchUrl = `/api/v1/products/?search=${encodeURIComponent(searchTerm)}`;
             const response = await fetch(searchUrl);
 
             if (!response.ok) {
