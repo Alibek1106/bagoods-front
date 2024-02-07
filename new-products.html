@@ -47,7 +47,7 @@
     <div class="bestseller-products">
         <div class="container">
             <div class="all-products">
-                <h2 style="font-size: 32px; text-align:start; margin-bottom: 20px;">Бeстселлер:</h2>
+                <h2 style="font-size: 32px; text-align:start; margin-bottom: 20px;">По новизне:</h2>
 
                 <div class="bestseller-products-boxes" id="allProductsBoxes">
 
@@ -71,7 +71,7 @@
     document.addEventListener('DOMContentLoaded', () => {
         const allProducts = document.getElementById('allProductsBoxes');
 
-        fetch('https://bagoods.kg/api/v1/products/?ordering=-order_count')
+        fetch('https://bagoods.kg/api/v1/products/?ordering=-created_at')
             .then(response => response.json())
             .then(data => {
                 data.results.forEach(product => {
