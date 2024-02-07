@@ -76,6 +76,8 @@
                                 <p>Введите ваше сообщение:</p>
                                 <textarea name="message" id="" cols="20" rows="10"  required></textarea>
                                 <button type="button" onclick="submitForm()">Отправить</button>
+                                <div class="request-success-message" id="success-message">Успешно отправлено!</div>
+
                             </form>
                         </div>
                     </div>
@@ -114,9 +116,16 @@
         }
 
         function displayResponse(data) {
-            const responseMessage = document.getElementById('response-message');
-            responseMessage.innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            const responseMessage = document.getElementById('success-message');
+            responseMessage.innerHTML = 'Успешно отправлено!';
+
+            responseMessage.style.display = 'block';
+
+            setTimeout(function () {
+                responseMessage.style.display = 'none';
+            }, 3000); // Hide after 3 seconds
         }
+
     </script>
     <script src="js/nav.js"></script>
 </body>
