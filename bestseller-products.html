@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Магазин электроники и бытовой техники в Бишкеке. Широкий ассортимент электронных товаров и товаров бытовой техники по доступным ценам">
+    <meta name="keywords" content="Bagoods, Магазин электроники, электроника, техника, Бишкек, apple, iphone, samsung, macbook, стиральные машины, телефон, планшет, ноутбуки, смартфоны, гаджеты, аксессуары, бытовая техника, умные устройства">
+    <meta name="author" content="Bagoods">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <meta name="yandex-verification" content="a5c0a622bbf318a3" />
+
+    <meta property="og:title" content="Магазин электроники в Бишкеке">
+    <meta property="og:description" content="Широкий ассортимент электронных товаров.">
+    <meta property="og:url" content="https://bagoods.kg/">
+    <meta property="og:type" content="website">
+
+    <!-- Теги Twitter Card для лучшего отображения в Twitter -->
+    <meta name="twitter:title" content="Магазин электроники в Бишкеке">
+    <meta name="twitter:description" content="Широкий ассортимент электронных товаров.">
+
+    <title>Bagoods</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <div class="header-row">
+            <div class="header-logo"><a href="index.html"><img src="images/logo.png" alt=""></a></div>
+            <nav class="main-nav nav-hidden" id="mainNav">
+                <form id="searchForm">
+                    <div class="search-container">
+                        <input type="text" id="searchInput" name="searchInput" placeholder="Введите запрос">
+                        <button type="submit" id="searchButton">
+                            <img src="images/icons/search-icon.svg" alt="Search Icon">
+                        </button>
+                    </div>
+                    <div id="searchError" class="error-message"></div>
+                </form>
+                <ul class="header-links">
+                    <li class="header-link"><a href="products.html">Все товары</a></li>
+                    <li class="header-link"><a href="about-us.html">О нас</a></li>
+                    <li class="header-link"><a href="contacts.html">Контакты</a></li>
+                </ul>
+            </nav>
+            <button class="nav-btn" type="button" id="navBtn"><span></span></button>
+        </div>
+    </div>
+</header>
+<main>
+    <div class="bestseller-products">
+        <div class="container">
+            <div class="bestseller-products-boxes" id="allProductsBoxes">
+
+            </div>
+        </div>
+    </div>
+</main>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const allProducts = document.getElementById('allProductsBoxes');
+
+        fetch('https://bagoods.kg/api/v1/products/?ordering=-order_count')
+            .then(response => response.json())
+            .then(data => {
+                data.results.forEach(product => {
+                    const allProductsBox = document.createElement('a');
+                    allProductsBox.className = 'all-products-box';
+                    allProductsBox.href = `https://bagoods.kg/single-product.html?id=${product.id}`;
+
+                    const imageHTML = `<img src="https://bagoods.kg${product.main_image?.image || ''}" alt="${product.name}">`;
+                    const nameHTML = `<h4>${product.name}</h4>`;
+
+                    const priceHTML = product.old_price
+                        ? `<span class="old-price">${product.old_price} с.</span><span class="price">${product.current_price} с.</span>`
+                        : `<span class="price">${product.current_price} с.</span>`;
+
+                    allProductsBox.innerHTML = `${imageHTML}${nameHTML}${priceHTML}`;
+                    allProducts.appendChild(allProductsBox);
+                });
+            })
+            .catch(error => {
+                console.error('Ошибка запроса товаров:', error);
+            });
+    });
+</script>
+</body>
+</html>

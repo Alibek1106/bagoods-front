@@ -604,13 +604,13 @@ legend {
     width: 80% !important;
   }
 }
-.all-products .all-products-boxes, .all-products .index-all-products-boxes {
+.all-products .all-products-boxes, .all-products .index-all-products-boxes, .all-products .bestseller-products-boxes {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
 }
-.all-products .all-products-boxes .all-products-box, .all-products .index-all-products-boxes .all-products-box {
+.all-products .all-products-boxes .all-products-box, .all-products .index-all-products-boxes .all-products-box, .all-products .bestseller-products-boxes .all-products-box {
   width: 300px;
   box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.25);
   border-radius: 30px;
@@ -619,55 +619,55 @@ legend {
   padding: 20px;
 }
 @media screen and (max-width: 700px) {
-  .all-products .all-products-boxes .all-products-box, .all-products .index-all-products-boxes .all-products-box {
+  .all-products .all-products-boxes .all-products-box, .all-products .index-all-products-boxes .all-products-box, .all-products .bestseller-products-boxes .all-products-box {
     width: 260px;
   }
 }
 @media screen and (max-width: 640px) {
-  .all-products .all-products-boxes .all-products-box, .all-products .index-all-products-boxes .all-products-box {
+  .all-products .all-products-boxes .all-products-box, .all-products .index-all-products-boxes .all-products-box, .all-products .bestseller-products-boxes .all-products-box {
     width: calc((100% - 20px) / 2);
   }
 }
-.all-products .all-products-boxes .all-products-box img, .all-products .index-all-products-boxes .all-products-box img {
+.all-products .all-products-boxes .all-products-box img, .all-products .index-all-products-boxes .all-products-box img, .all-products .bestseller-products-boxes .all-products-box img {
   width: 200px;
   height: 200px;
   margin: 0 auto 20px;
 }
 @media screen and (max-width: 640px) {
-  .all-products .all-products-boxes .all-products-box img, .all-products .index-all-products-boxes .all-products-box img {
+  .all-products .all-products-boxes .all-products-box img, .all-products .index-all-products-boxes .all-products-box img, .all-products .bestseller-products-boxes .all-products-box img {
     width: 100px;
     height: 100px;
   }
 }
 @media screen and (max-width: 480px) {
-  .all-products .all-products-boxes .all-products-box img, .all-products .index-all-products-boxes .all-products-box img {
+  .all-products .all-products-boxes .all-products-box img, .all-products .index-all-products-boxes .all-products-box img, .all-products .bestseller-products-boxes .all-products-box img {
     width: 70px;
     height: 70px;
   }
 }
-.all-products .all-products-boxes .all-products-box h4, .all-products .index-all-products-boxes .all-products-box h4 {
+.all-products .all-products-boxes .all-products-box h4, .all-products .index-all-products-boxes .all-products-box h4, .all-products .bestseller-products-boxes .all-products-box h4 {
   font-size: 19px;
   margin-bottom: 20px;
 }
 @media screen and (max-width: 640px) {
-  .all-products .all-products-boxes .all-products-box h4, .all-products .index-all-products-boxes .all-products-box h4 {
+  .all-products .all-products-boxes .all-products-box h4, .all-products .index-all-products-boxes .all-products-box h4, .all-products .bestseller-products-boxes .all-products-box h4 {
     font-size: 13px;
   }
 }
-.all-products .all-products-boxes .all-products-box .old-price, .all-products .index-all-products-boxes .all-products-box .old-price {
+.all-products .all-products-boxes .all-products-box .old-price, .all-products .index-all-products-boxes .all-products-box .old-price, .all-products .bestseller-products-boxes .all-products-box .old-price {
   text-decoration: line-through;
   color: red;
 }
 @media screen and (max-width: 640px) {
-  .all-products .all-products-boxes .all-products-box .old-price, .all-products .index-all-products-boxes .all-products-box .old-price {
+  .all-products .all-products-boxes .all-products-box .old-price, .all-products .index-all-products-boxes .all-products-box .old-price, .all-products .bestseller-products-boxes .all-products-box .old-price {
     font-size: 10px;
   }
 }
-.all-products .all-products-boxes .all-products-box .price, .all-products .index-all-products-boxes .all-products-box .price {
+.all-products .all-products-boxes .all-products-box .price, .all-products .index-all-products-boxes .all-products-box .price, .all-products .bestseller-products-boxes .all-products-box .price {
   font-size: 17px;
 }
 @media screen and (max-width: 640px) {
-  .all-products .all-products-boxes .all-products-box .price, .all-products .index-all-products-boxes .all-products-box .price {
+  .all-products .all-products-boxes .all-products-box .price, .all-products .index-all-products-boxes .all-products-box .price, .all-products .bestseller-products-boxes .all-products-box .price {
     font-size: 10px;
   }
 }
