@@ -31,4 +31,16 @@
         <priority>0.8</priority>
     </url>
 
+    <url>
+        <loc>https://bagoods.kg/new-products.html</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://bagoods.kg/bestseller-products.html</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
 </urlset>

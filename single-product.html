@@ -199,7 +199,14 @@
             function displayOrderResponse(data) {
                 const orderResponseMessage = document.getElementById('order-response-message');
                 orderResponseMessage.innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+
+                orderResponseMessage.style.display = 'block';
+
+                setTimeout(function () {
+                    orderResponseMessage.style.display = 'none';
+                }, 3000); // Hide after 3 seconds
             }
+
 
             function fetchProductDetails() {
                 const productId = getParameterByName('id');
