@@ -847,10 +847,10 @@ legend {
   position: fixed;
   top: 10px;
   right: 10px;
-  padding: 10px;
+  padding: 10pt 18px;
   background-color: #FF8700;
   color: #ffffff;
-  border-radius: 5px;
+  border-radius: 25px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   z-index: 999;
 }
@@ -1050,7 +1050,7 @@ legend {
   padding: 10pt 18px;
   background-color: #FF8700;
   color: #ffffff;
-  border-radius: 5px;
+  border-radius: 25px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   z-index: 999;
 }
