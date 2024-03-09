@@ -3,19 +3,6 @@
 .all-products{
   padding: 50px 0;
 
-  .see-all-products{
-    text-align: center;
-
-    a{
-      border: 1px solid #000;
-      padding: 10px 20px;
-      border-radius: 20px;
-      align-items: center;
-      margin-top: 40px;
-      display: inline-block;
-    }
-  }
-
   @include sm{
     padding: 25px 0;
   }
@@ -145,5 +132,18 @@
         }
       }
     }
+  }
+}
+
+.see-all-products{
+  text-align: center;
+
+  a{
+    border: 1px solid #000;
+    padding: 10px 20px;
+    border-radius: 20px;
+    align-items: center;
+    margin: 40px 0;
+    display: inline-block;
   }
 }

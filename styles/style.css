@@ -534,17 +534,6 @@ legend {
 .all-products {
   padding: 50px 0;
 }
-.all-products .see-all-products {
-  text-align: center;
-}
-.all-products .see-all-products a {
-  border: 1px solid #000;
-  padding: 10px 20px;
-  border-radius: 20px;
-  align-items: center;
-  margin-top: 40px;
-  display: inline-block;
-}
 @media screen and (max-width: 640px) {
   .all-products {
     padding: 25px 0;
@@ -670,6 +659,18 @@ legend {
   .all-products .all-products-boxes .all-products-box .price, .all-products .index-all-products-boxes .all-products-box .price, .all-products .bestseller-products-boxes .all-products-box .price {
     font-size: 10px;
   }
+}
+
+.see-all-products {
+  text-align: center;
+}
+.see-all-products a {
+  border: 1px solid #000;
+  padding: 10px 20px;
+  border-radius: 20px;
+  align-items: center;
+  margin: 40px 0;
+  display: inline-block;
 }
 
 .qa-container {
@@ -991,7 +992,7 @@ legend {
 #order-form-wrapper {
   background: rgba(0, 0, 0, 0.5);
   display: none;
-  height: 100vh;
+  height: 100%;
   position: absolute;
   width: 100%;
 }
